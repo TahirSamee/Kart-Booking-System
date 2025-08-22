@@ -97,6 +97,13 @@
         lstSurnameResults.Items.Clear()
     End Sub
 
+    Private Sub CustomerForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        ' MessageBox.Show("CustomerForm Closed")
+    End Sub
+
+    Private Sub btnclose_Click(sender As Object, e As EventArgs)
+        Me.Close()
+    End Sub
 End Class
 
 ' helper class to show listbox items with ID

@@ -18,32 +18,21 @@ Public Class StaffDAL
     Public Shared Function AddStaff(username As String, passwordPlain As String, fullName As String, role As String, phone As String, email As String) As Integer
         Dim salt = SecurityHelper.GenerateSalt()
         Dim hash = SecurityHelper.HashPassword(passwordPlain, salt)
-        Debug.WriteLine($"Username={username}, Password={hash},salt={salt}, FullName={fullName}, Role={role}, Phone={phone}, Email={email}")
 
         Dim sql = "INSERT INTO Staff (Username, PasswordHash, Salt, FullName, Role, Phone, Email, IsArchived, CreatedAt, UpdatedAt) VALUES (?,?,?,?,?,?,?,?,?,?)"
         Using cn = DBHelper.GetConnection()
             Using cmd = New OleDbCommand(sql, cn)
-                cmd.Parameters.Add("@Username", OleDbType.VarChar).Value = username
-                cmd.Parameters.Add("@PasswordHash", OleDbType.VarChar).Value = hash
-                cmd.Parameters.Add("@Salt", OleDbType.VarChar).Value = salt
-                cmd.Parameters.Add("@FullName", OleDbType.VarChar).Value = fullName
-                cmd.Parameters.Add("@Role", OleDbType.VarChar).Value = role
-                cmd.Parameters.Add("@Phone", OleDbType.VarChar).Value = phone
-                cmd.Parameters.Add("@Email", OleDbType.VarChar).Value = email
+                cmd.Parameters.Add("@Username", OleDbType.VarChar, 100).Value = username
+                cmd.Parameters.Add("@PasswordHash", OleDbType.VarChar, 200).Value = hash
+                cmd.Parameters.Add("@Salt", OleDbType.VarChar, 200).Value = salt
+                cmd.Parameters.Add("@FullName", OleDbType.VarChar, 150).Value = fullName
+                cmd.Parameters.Add("@Role", OleDbType.VarChar, 50).Value = role
+                cmd.Parameters.Add("@Phone", OleDbType.VarChar, 30).Value = phone
+                cmd.Parameters.Add("@Email", OleDbType.VarChar, 100).Value = email
                 cmd.Parameters.Add("@IsArchived", OleDbType.Boolean).Value = False
                 cmd.Parameters.Add("@CreatedAt", OleDbType.Date).Value = DateTime.Now
                 cmd.Parameters.Add("@UpdatedAt", OleDbType.Date).Value = DateTime.Now
 
-                'cmd.Parameters.AddWithValue("@Username", username)
-                'cmd.Parameters.AddWithValue("@PasswordHash", hash)
-                'cmd.Parameters.AddWithValue("@Salt", salt)
-                'cmd.Parameters.AddWithValue("@FullName", fullName)
-                'cmd.Parameters.AddWithValue("@Role", role)
-                'cmd.Parameters.AddWithValue("@Phone", phone)
-                'cmd.Parameters.AddWithValue("@Email", email)
-                'cmd.Parameters.AddWithValue("@IsArchived", False)
-                'cmd.Parameters.AddWithValue("@CreatedAt", DateTime.Now)
-                'cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now)
                 cn.Open()
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "SELECT @@IDENTITY"
@@ -57,7 +46,7 @@ Public Class StaffDAL
         Dim sql = "SELECT * FROM Staff WHERE Username = ? AND IsArchived = 0"
         Using cn = DBHelper.GetConnection()
             Using cmd = New OleDbCommand(sql, cn)
-                cmd.Parameters.AddWithValue("@Username", username)
+                cmd.Parameters.Add("@Username", OleDbType.VarChar, 100).Value = username
                 Using da = New OleDbDataAdapter(cmd)
                     da.Fill(dt)
                 End Using
@@ -70,13 +59,15 @@ Public Class StaffDAL
     Public Shared Function UpdateStaffPassword(staffId As Integer, newPassword As String) As Boolean
         Dim salt = SecurityHelper.GenerateSalt()
         Dim hash = SecurityHelper.HashPassword(newPassword, salt)
+
         Dim sql = "UPDATE Staff SET PasswordHash = ?, Salt = ?, UpdatedAt = ? WHERE StaffID = ?"
         Using cn = DBHelper.GetConnection()
             Using cmd = New OleDbCommand(sql, cn)
-                cmd.Parameters.AddWithValue("@PasswordHash", hash)
-                cmd.Parameters.AddWithValue("@Salt", salt)
-                cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now)
-                cmd.Parameters.AddWithValue("@StaffID", staffId)
+                cmd.Parameters.Add("@PasswordHash", OleDbType.VarChar, 200).Value = hash
+                cmd.Parameters.Add("@Salt", OleDbType.VarChar, 200).Value = salt
+                cmd.Parameters.Add("@UpdatedAt", OleDbType.Date).Value = DateTime.Now
+                cmd.Parameters.Add("@StaffID", OleDbType.Integer).Value = staffId
+
                 cn.Open()
                 Return cmd.ExecuteNonQuery() > 0
             End Using
@@ -87,8 +78,9 @@ Public Class StaffDAL
         Dim sql = "UPDATE Staff SET IsArchived = 1, UpdatedAt = ? WHERE StaffID = ?"
         Using cn = DBHelper.GetConnection()
             Using cmd = New OleDbCommand(sql, cn)
-                cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now)
-                cmd.Parameters.AddWithValue("@StaffID", staffId)
+                cmd.Parameters.Add("@UpdatedAt", OleDbType.Date).Value = DateTime.Now
+                cmd.Parameters.Add("@StaffID", OleDbType.Integer).Value = staffId
+
                 cn.Open()
                 Return cmd.ExecuteNonQuery() > 0
             End Using

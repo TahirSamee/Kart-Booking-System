@@ -331,7 +331,7 @@ Partial Class CustomerForm
         Me.dgvBookings.ReadOnly = True
         Me.dgvBookings.RowHeadersVisible = False
         Me.dgvBookings.RowHeadersWidth = 51
-        Me.dgvBookings.Size = New System.Drawing.Size(803, 241)
+        Me.dgvBookings.Size = New System.Drawing.Size(819, 241)
         Me.dgvBookings.TabIndex = 3
         '
         'CustomerForm

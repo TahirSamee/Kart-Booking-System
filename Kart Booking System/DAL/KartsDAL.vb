@@ -19,12 +19,13 @@ Public Class KartsDAL
         Dim sql = "INSERT INTO Karts (KartNumber, KartType, IsAvailable, Notes, CreatedAt, UpdatedAt) VALUES (?,?,?,?,?,?)"
         Using cn = DBHelper.GetConnection()
             Using cmd = New OleDbCommand(sql, cn)
-                cmd.Parameters.AddWithValue("@KartNumber", kartNumber)
-                cmd.Parameters.AddWithValue("@KartType", kartType)
-                cmd.Parameters.AddWithValue("@IsAvailable", isAvailable)
-                cmd.Parameters.AddWithValue("@Notes", notes)
-                cmd.Parameters.AddWithValue("@CreatedAt", DateTime.Now)
-                cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now)
+                cmd.Parameters.Add("@KartNumber", OleDbType.VarWChar, 50).Value = kartNumber
+                cmd.Parameters.Add("@KartType", OleDbType.VarWChar, 50).Value = kartType
+                cmd.Parameters.Add("@IsAvailable", OleDbType.Boolean).Value = isAvailable
+                cmd.Parameters.Add("@Notes", OleDbType.LongVarWChar).Value = notes
+                cmd.Parameters.Add("@CreatedAt", OleDbType.Date).Value = DateTime.Now
+                cmd.Parameters.Add("@UpdatedAt", OleDbType.Date).Value = DateTime.Now
+
                 cn.Open()
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "SELECT @@IDENTITY"
@@ -37,9 +38,10 @@ Public Class KartsDAL
         Dim sql = "UPDATE Karts SET IsAvailable = ?, UpdatedAt = ? WHERE KartID = ?"
         Using cn = DBHelper.GetConnection()
             Using cmd = New OleDbCommand(sql, cn)
-                cmd.Parameters.AddWithValue("@IsAvailable", isAvailable)
-                cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.Now)
-                cmd.Parameters.AddWithValue("@KartID", kartId)
+                cmd.Parameters.Add("@IsAvailable", OleDbType.Boolean).Value = isAvailable
+                cmd.Parameters.Add("@UpdatedAt", OleDbType.Date).Value = DateTime.Now
+                cmd.Parameters.Add("@KartID", OleDbType.Integer).Value = kartId
+
                 cn.Open()
                 Return cmd.ExecuteNonQuery() > 0
             End Using
@@ -51,7 +53,8 @@ Public Class KartsDAL
         Dim sql = "SELECT * FROM Karts WHERE KartID = ?"
         Using cn = DBHelper.GetConnection()
             Using cmd = New OleDbCommand(sql, cn)
-                cmd.Parameters.AddWithValue("@KartID", kartId)
+                cmd.Parameters.Add("@KartID", OleDbType.Integer).Value = kartId
+
                 Using da = New OleDbDataAdapter(cmd)
                     da.Fill(dt)
                 End Using

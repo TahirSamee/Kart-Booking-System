@@ -70,7 +70,7 @@
         Me.btnCustomers.Location = New System.Drawing.Point(20, 55)
         Me.btnCustomers.Size = New System.Drawing.Size(150, 40)
         Me.btnCustomers.Text = "👥 Customers"
-        AddHandler Me.btnCustomers.Click, AddressOf Me.btnCustomers_Click
+        'AddHandler Me.btnCustomers.Click, AddressOf Me.btnCustomers_Click
         '
         'btnBookings
         '
@@ -82,7 +82,7 @@
         Me.btnBookings.Location = New System.Drawing.Point(190, 55)
         Me.btnBookings.Size = New System.Drawing.Size(150, 40)
         Me.btnBookings.Text = "📅 Bookings"
-        AddHandler Me.btnBookings.Click, AddressOf Me.btnBookings_Click
+        'AddHandler Me.btnBookings.Click, AddressOf Me.btnBookings_Click
         '
         'btnKarts
         '
@@ -94,7 +94,7 @@
         Me.btnKarts.Location = New System.Drawing.Point(20, 110)
         Me.btnKarts.Size = New System.Drawing.Size(150, 40)
         Me.btnKarts.Text = "🏎 Karts"
-        AddHandler Me.btnKarts.Click, AddressOf Me.btnKarts_Click
+        'AddHandler Me.btnKarts.Click, AddressOf Me.btnKarts_Click
         '
         'btnStaffManagement
         '
@@ -106,7 +106,7 @@
         Me.btnStaffManagement.Location = New System.Drawing.Point(190, 110)
         Me.btnStaffManagement.Size = New System.Drawing.Size(150, 40)
         Me.btnStaffManagement.Text = "👨‍💼 Staff"
-        AddHandler Me.btnStaffManagement.Click, AddressOf Me.btnStaffManagement_Click
+        'AddHandler Me.btnStaffManagement.Click, AddressOf Me.btnStaffManagement_Click
         '
         'btnLogout
         '
@@ -118,7 +118,7 @@
         Me.btnLogout.Location = New System.Drawing.Point(105, 170)
         Me.btnLogout.Size = New System.Drawing.Size(150, 40)
         Me.btnLogout.Text = "🚪 Logout"
-        AddHandler Me.btnLogout.Click, AddressOf Me.btnLogout_Click
+        'AddHandler Me.btnLogout.Click, AddressOf Me.btnLogout_Click
         '
         'MainForm
         '

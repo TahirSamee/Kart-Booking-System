@@ -2,95 +2,185 @@
     Inherits System.Windows.Forms.Form
 
     Private components As System.ComponentModel.IContainer
+    Friend WithEvents lblHeader As System.Windows.Forms.Label
+    Friend WithEvents grpBookingDetails As System.Windows.Forms.GroupBox
+    Friend WithEvents lblBookingID As System.Windows.Forms.Label
+    Friend WithEvents txtBookingID As System.Windows.Forms.TextBox
+    Friend WithEvents lblCustomerID As System.Windows.Forms.Label
     Friend WithEvents txtCustomerID As System.Windows.Forms.TextBox
+    Friend WithEvents lblStart As System.Windows.Forms.Label
     Friend WithEvents dtpStart As System.Windows.Forms.DateTimePicker
+    Friend WithEvents lblEnd As System.Windows.Forms.Label
     Friend WithEvents dtpEnd As System.Windows.Forms.DateTimePicker
+    Friend WithEvents lblNotes As System.Windows.Forms.Label
+    Friend WithEvents txtBookingNotes As System.Windows.Forms.TextBox
+    Friend WithEvents lblKarts As System.Windows.Forms.Label
     Friend WithEvents clbKarts As System.Windows.Forms.CheckedListBox
     Friend WithEvents btnCreateBooking As System.Windows.Forms.Button
+    Friend WithEvents btnRemoveKart As System.Windows.Forms.Button
+    Friend WithEvents btnMarkAttended As System.Windows.Forms.Button
+
+    Friend WithEvents dgvBookings As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvBookingKarts As System.Windows.Forms.DataGridView
+    Friend WithEvents lblSearchDate As System.Windows.Forms.Label
     Friend WithEvents dtpSearchDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents btnSearchDate As System.Windows.Forms.Button
-    Friend WithEvents dgvBookings As System.Windows.Forms.DataGridView
-    Friend WithEvents btnMarkAttended As System.Windows.Forms.Button
-    Friend WithEvents txtBookingNotes As System.Windows.Forms.TextBox
-    Friend WithEvents btnRemoveKart As System.Windows.Forms.Button
-    ' Add this declaration at the top with the other controls
-    Friend WithEvents dgvBookingKarts As System.Windows.Forms.DataGridView
-    Friend WithEvents txtBookingID As System.Windows.Forms.TextBox
-
-
 
     Private Sub InitializeComponent()
+        Me.lblHeader = New System.Windows.Forms.Label()
+        Me.grpBookingDetails = New System.Windows.Forms.GroupBox()
+        Me.lblBookingID = New System.Windows.Forms.Label()
+        Me.txtBookingID = New System.Windows.Forms.TextBox()
+        Me.lblCustomerID = New System.Windows.Forms.Label()
         Me.txtCustomerID = New System.Windows.Forms.TextBox()
+        Me.lblStart = New System.Windows.Forms.Label()
         Me.dtpStart = New System.Windows.Forms.DateTimePicker()
+        Me.lblEnd = New System.Windows.Forms.Label()
         Me.dtpEnd = New System.Windows.Forms.DateTimePicker()
+        Me.lblNotes = New System.Windows.Forms.Label()
+        Me.txtBookingNotes = New System.Windows.Forms.TextBox()
+        Me.lblKarts = New System.Windows.Forms.Label()
         Me.clbKarts = New System.Windows.Forms.CheckedListBox()
         Me.btnCreateBooking = New System.Windows.Forms.Button()
+        Me.btnRemoveKart = New System.Windows.Forms.Button()
+        Me.btnMarkAttended = New System.Windows.Forms.Button()
+        Me.dgvBookings = New System.Windows.Forms.DataGridView()
+        Me.dgvBookingKarts = New System.Windows.Forms.DataGridView()
+        Me.lblSearchDate = New System.Windows.Forms.Label()
         Me.dtpSearchDate = New System.Windows.Forms.DateTimePicker()
         Me.btnSearchDate = New System.Windows.Forms.Button()
-        Me.dgvBookings = New System.Windows.Forms.DataGridView()
-        Me.btnMarkAttended = New System.Windows.Forms.Button()
-        Me.txtBookingNotes = New System.Windows.Forms.TextBox()
+        Me.grpBookingDetails.SuspendLayout()
         CType(Me.dgvBookings, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvBookingKarts, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
 
-        Me.txtCustomerID.Location = New System.Drawing.Point(16, 16)
-        Me.dtpStart.Location = New System.Drawing.Point(16, 48)
-        Me.dtpEnd.Location = New System.Drawing.Point(220, 48)
-        Me.clbKarts.Location = New System.Drawing.Point(16, 86)
-        Me.clbKarts.Size = New System.Drawing.Size(360, 120)
-        Me.txtBookingNotes.Location = New System.Drawing.Point(16, 220)
-        Me.btnCreateBooking.Location = New System.Drawing.Point(16, 260)
-        Me.btnCreateBooking.Text = "Create Booking"
-        AddHandler Me.btnCreateBooking.Click, AddressOf Me.btnCreateBooking_Click
+        ' Header
+        Me.lblHeader.BackColor = System.Drawing.Color.SteelBlue
+        Me.lblHeader.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblHeader.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.lblHeader.ForeColor = System.Drawing.Color.White
+        Me.lblHeader.Size = New System.Drawing.Size(1000, 50)
+        Me.lblHeader.Text = "📅 Booking Management"
+        Me.lblHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
 
-        Me.dtpSearchDate.Location = New System.Drawing.Point(420, 16)
-        Me.btnSearchDate.Location = New System.Drawing.Point(620, 12)
-        Me.btnSearchDate.Text = "Search Date"
-        AddHandler Me.btnSearchDate.Click, AddressOf Me.btnSearchDate_Click
+        ' GroupBox Booking Details
+        Me.grpBookingDetails.BackColor = System.Drawing.Color.White
+        Me.grpBookingDetails.Controls.Add(Me.lblBookingID)
+        Me.grpBookingDetails.Controls.Add(Me.txtBookingID)
+        Me.grpBookingDetails.Controls.Add(Me.lblCustomerID)
+        Me.grpBookingDetails.Controls.Add(Me.txtCustomerID)
+        Me.grpBookingDetails.Controls.Add(Me.lblStart)
+        Me.grpBookingDetails.Controls.Add(Me.dtpStart)
+        Me.grpBookingDetails.Controls.Add(Me.lblEnd)
+        Me.grpBookingDetails.Controls.Add(Me.dtpEnd)
+        Me.grpBookingDetails.Controls.Add(Me.lblNotes)
+        Me.grpBookingDetails.Controls.Add(Me.txtBookingNotes)
+        Me.grpBookingDetails.Controls.Add(Me.lblKarts)
+        Me.grpBookingDetails.Controls.Add(Me.clbKarts)
+        Me.grpBookingDetails.Controls.Add(Me.btnCreateBooking)
+        Me.grpBookingDetails.Controls.Add(Me.btnRemoveKart)
+        Me.grpBookingDetails.Controls.Add(Me.btnMarkAttended)
+        Me.grpBookingDetails.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.grpBookingDetails.Location = New System.Drawing.Point(20, 60)
+        Me.grpBookingDetails.Size = New System.Drawing.Size(400, 420)
+        Me.grpBookingDetails.Text = "Booking Details"
 
-        Me.dgvBookings.Location = New System.Drawing.Point(420, 48)
-        Me.dgvBookings.Size = New System.Drawing.Size(480, 300)
-
-        Me.btnMarkAttended.Location = New System.Drawing.Point(420, 360)
-        Me.btnMarkAttended.Text = "Mark Attended"
-        AddHandler Me.btnMarkAttended.Click, AddressOf Me.btnMarkAttended_Click
-
-        ' Booking ID textbox
-        Me.txtBookingID = New System.Windows.Forms.TextBox()
-        Me.txtBookingID.Location = New System.Drawing.Point(16, 400)
-        Me.txtBookingID.Size = New System.Drawing.Size(100, 20)
+        ' Booking ID
+        Me.lblBookingID.Text = "Booking ID:"
+        Me.lblBookingID.Location = New System.Drawing.Point(15, 30)
+        Me.txtBookingID.Location = New System.Drawing.Point(120, 28)
+        Me.txtBookingID.Size = New System.Drawing.Size(250, 30)
         Me.txtBookingID.ReadOnly = True
-        Me.Controls.Add(Me.txtBookingID)
 
-        ' Booking Karts DataGridView
-        Me.dgvBookingKarts = New System.Windows.Forms.DataGridView()
-        Me.dgvBookingKarts.Location = New System.Drawing.Point(16, 430)
-        Me.dgvBookingKarts.Size = New System.Drawing.Size(360, 150)
-        Me.Controls.Add(Me.dgvBookingKarts)
+        ' Customer ID
+        Me.lblCustomerID.Text = "Customer ID:"
+        Me.lblCustomerID.Location = New System.Drawing.Point(15, 65)
+        Me.txtCustomerID.Location = New System.Drawing.Point(120, 63)
+        Me.txtCustomerID.Size = New System.Drawing.Size(250, 30)
 
-        ' Remove Kart button
-        Me.btnRemoveKart = New System.Windows.Forms.Button()
-        Me.btnRemoveKart.Location = New System.Drawing.Point(16, 590)
-        Me.btnRemoveKart.Text = "Remove Kart"
-        AddHandler Me.btnRemoveKart.Click, AddressOf Me.btnRemoveKart_Click
-        Me.Controls.Add(Me.btnRemoveKart)
+        ' Start Date
+        Me.lblStart.Text = "Start:"
+        Me.lblStart.Location = New System.Drawing.Point(15, 100)
+        Me.dtpStart.Location = New System.Drawing.Point(120, 98)
 
+        ' End Date
+        Me.lblEnd.Text = "End:"
+        Me.lblEnd.Location = New System.Drawing.Point(15, 135)
+        Me.dtpEnd.Location = New System.Drawing.Point(120, 133)
 
-        Me.ClientSize = New System.Drawing.Size(920, 430)
-        Me.Controls.Add(Me.btnMarkAttended)
+        ' Notes
+        Me.lblNotes.Text = "Notes:"
+        Me.lblNotes.Location = New System.Drawing.Point(15, 170)
+        Me.txtBookingNotes.Location = New System.Drawing.Point(120, 168)
+        Me.txtBookingNotes.Multiline = True
+        Me.txtBookingNotes.Size = New System.Drawing.Size(250, 50)
+
+        ' Karts
+        Me.lblKarts.Text = "Select Karts:"
+        Me.lblKarts.Location = New System.Drawing.Point(15, 225)
+        Me.clbKarts.Location = New System.Drawing.Point(120, 223)
+        Me.clbKarts.Size = New System.Drawing.Size(250, 79)
+
+        ' Buttons
+        Me.btnCreateBooking.Text = "➕ Create"
+        Me.btnCreateBooking.BackColor = System.Drawing.Color.SeaGreen
+        Me.btnCreateBooking.ForeColor = System.Drawing.Color.White
+        Me.btnCreateBooking.Location = New System.Drawing.Point(20, 330)
+        Me.btnCreateBooking.Size = New System.Drawing.Size(97, 56)
+
+        Me.btnRemoveKart.Text = "🗑 Remove Kart"
+        Me.btnRemoveKart.BackColor = System.Drawing.Color.DarkRed
+        Me.btnRemoveKart.ForeColor = System.Drawing.Color.White
+        Me.btnRemoveKart.Location = New System.Drawing.Point(140, 330)
+        Me.btnRemoveKart.Size = New System.Drawing.Size(120, 56)
+
+        Me.btnMarkAttended.Text = "✔ Attended"
+        Me.btnMarkAttended.BackColor = System.Drawing.Color.DodgerBlue
+        Me.btnMarkAttended.ForeColor = System.Drawing.Color.White
+        Me.btnMarkAttended.Location = New System.Drawing.Point(270, 330)
+        Me.btnMarkAttended.Size = New System.Drawing.Size(100, 56)
+
+        ' DataGridView - Bookings
+        Me.dgvBookings.Location = New System.Drawing.Point(440, 100)
+        Me.dgvBookings.Size = New System.Drawing.Size(540, 200)
+        Me.dgvBookings.BackgroundColor = System.Drawing.Color.White
+        Me.dgvBookings.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvBookings.ReadOnly = True
+
+        ' DataGridView - Booking Karts
+        Me.dgvBookingKarts.Location = New System.Drawing.Point(440, 320)
+        Me.dgvBookingKarts.Size = New System.Drawing.Size(540, 160)
+        Me.dgvBookingKarts.BackgroundColor = System.Drawing.Color.White
+        Me.dgvBookingKarts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvBookingKarts.ReadOnly = True
+
+        ' Search Date
+        Me.lblSearchDate.Text = "Search by Date:"
+        Me.lblSearchDate.Location = New System.Drawing.Point(440, 65)
+        Me.dtpSearchDate.Location = New System.Drawing.Point(550, 60)
+        Me.btnSearchDate.Text = "🔍 Search"
+        Me.btnSearchDate.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnSearchDate.ForeColor = System.Drawing.Color.White
+        Me.btnSearchDate.Location = New System.Drawing.Point(770, 57)
+        Me.btnSearchDate.Size = New System.Drawing.Size(120, 30)
+
+        ' BookingForm
+        Me.BackColor = System.Drawing.Color.Gainsboro
+        Me.ClientSize = New System.Drawing.Size(1000, 500)
+        Me.Controls.Add(Me.lblHeader)
+        Me.Controls.Add(Me.grpBookingDetails)
         Me.Controls.Add(Me.dgvBookings)
-        Me.Controls.Add(Me.btnSearchDate)
+        Me.Controls.Add(Me.dgvBookingKarts)
+        Me.Controls.Add(Me.lblSearchDate)
         Me.Controls.Add(Me.dtpSearchDate)
-        Me.Controls.Add(Me.btnCreateBooking)
-        Me.Controls.Add(Me.txtBookingNotes)
-        Me.Controls.Add(Me.clbKarts)
-        Me.Controls.Add(Me.dtpEnd)
-        Me.Controls.Add(Me.dtpStart)
-        Me.Controls.Add(Me.txtCustomerID)
-        Me.Name = "BookingForm"
-        Me.Text = "Bookings"
+        Me.Controls.Add(Me.btnSearchDate)
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Booking Management"
+
+        Me.grpBookingDetails.ResumeLayout(False)
+        Me.grpBookingDetails.PerformLayout()
         CType(Me.dgvBookings, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvBookingKarts, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
     End Sub
 End Class

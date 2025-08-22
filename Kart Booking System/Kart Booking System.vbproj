@@ -133,6 +133,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\BookingForm.resx">
+      <DependentUpon>BookingForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CustomerForm.resx">
       <DependentUpon>CustomerForm.vb</DependentUpon>
     </EmbeddedResource>
