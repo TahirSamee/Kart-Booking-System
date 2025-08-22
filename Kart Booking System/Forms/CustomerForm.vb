@@ -110,8 +110,8 @@ End Class
 Public Class ListItemWithID
     Public Property ID As Integer
     Public Property DisplayText As String
-    Public Sub New(id As Integer, text As String)
-        id = id
+    Public Sub New(ids As Integer, text As String)
+        ID = ids
         DisplayText = text
     End Sub
     Public Overrides Function ToString() As String

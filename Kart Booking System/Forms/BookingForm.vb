@@ -18,7 +18,8 @@ Public Class BookingForm
         clbKarts.Items.Clear()
         For Each r As DataRow In dt.Rows
             Dim itemText = String.Format("{0} - {1} ({2})", r("KartID"), r("KartNumber"), If(Convert.ToBoolean(r("IsAvailable")), "Available", "Not Available"))
-            clbKarts.Items.Add(New ListItemWithID(Convert.ToInt32(r("KartID")), itemText))
+            Dim id = Convert.ToInt32(r("KartID"))
+            clbKarts.Items.Add(New ListItemWithID(id, itemText))
         Next
     End Sub
 
