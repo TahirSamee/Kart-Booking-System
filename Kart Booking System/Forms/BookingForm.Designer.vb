@@ -7,7 +7,8 @@
     Friend WithEvents lblBookingID As System.Windows.Forms.Label
     Friend WithEvents txtBookingID As System.Windows.Forms.TextBox
     Friend WithEvents lblCustomerID As System.Windows.Forms.Label
-    Friend WithEvents txtCustomerID As System.Windows.Forms.TextBox
+    Friend WithEvents cboCustomer As System.Windows.Forms.ComboBox
+
     Friend WithEvents lblStart As System.Windows.Forms.Label
     Friend WithEvents dtpStart As System.Windows.Forms.DateTimePicker
     Friend WithEvents lblEnd As System.Windows.Forms.Label
@@ -32,7 +33,7 @@
         Me.lblBookingID = New System.Windows.Forms.Label()
         Me.txtBookingID = New System.Windows.Forms.TextBox()
         Me.lblCustomerID = New System.Windows.Forms.Label()
-        Me.txtCustomerID = New System.Windows.Forms.TextBox()
+        Me.cboCustomer = New System.Windows.Forms.ComboBox()
         Me.lblStart = New System.Windows.Forms.Label()
         Me.dtpStart = New System.Windows.Forms.DateTimePicker()
         Me.lblEnd = New System.Windows.Forms.Label()
@@ -68,7 +69,7 @@
         Me.grpBookingDetails.Controls.Add(Me.lblBookingID)
         Me.grpBookingDetails.Controls.Add(Me.txtBookingID)
         Me.grpBookingDetails.Controls.Add(Me.lblCustomerID)
-        Me.grpBookingDetails.Controls.Add(Me.txtCustomerID)
+        Me.grpBookingDetails.Controls.Add(Me.cboCustomer)
         Me.grpBookingDetails.Controls.Add(Me.lblStart)
         Me.grpBookingDetails.Controls.Add(Me.dtpStart)
         Me.grpBookingDetails.Controls.Add(Me.lblEnd)
@@ -95,8 +96,10 @@
         ' Customer ID
         Me.lblCustomerID.Text = "Customer ID:"
         Me.lblCustomerID.Location = New System.Drawing.Point(15, 65)
-        Me.txtCustomerID.Location = New System.Drawing.Point(120, 63)
-        Me.txtCustomerID.Size = New System.Drawing.Size(250, 30)
+
+        Me.cboCustomer.Location = New System.Drawing.Point(120, 63)
+        Me.cboCustomer.Size = New System.Drawing.Size(250, 30)
+        Me.cboCustomer.DropDownStyle = ComboBoxStyle.DropDownList
 
         ' Start Date
         Me.lblStart.Text = "Start:"

@@ -11,8 +11,15 @@ Public Class BookingForm
     Private Sub BookingForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Load karts into checkedlist
         LoadKarts()
+        LoadCustomers()
     End Sub
-
+    Private Sub LoadCustomers()
+        Dim dt = CustomersDAL.GetAllCustomers() ' implement to return CustomerID, FullName
+        cboCustomer.DataSource = dt
+        cboCustomer.DisplayMember = "FullName"
+        cboCustomer.ValueMember = "CustomerID"
+        cboCustomer.SelectedIndex = -1
+    End Sub
     Private Sub LoadKarts()
         Dim dt = KartsDAL.GetAllKarts() ' implement this to return KartID, KartNumber, IsAvailable
         clbKarts.Items.Clear()
@@ -22,14 +29,13 @@ Public Class BookingForm
             clbKarts.Items.Add(New ListItemWithID(id, itemText))
         Next
     End Sub
-
     Private Sub btnCreateBooking_Click(sender As Object, e As EventArgs) Handles btnCreateBooking.Click
-        ' Validate customer loaded
-        Dim customerId As Integer
-        If Not Integer.TryParse(txtCustomerID.Text, customerId) Then
-            MessageBox.Show("Load a customer first.")
+        If cboCustomer.SelectedIndex = -1 Then
+            MessageBox.Show("Please select a customer.")
             Return
         End If
+        Dim customerId As Integer = CInt(cboCustomer.SelectedValue)
+
         Dim startDt = dtpStart.Value
         Dim endDt = dtpEnd.Value
         If endDt <= startDt Then
@@ -49,14 +55,48 @@ Public Class BookingForm
             If clbKarts.GetItemChecked(i) Then
                 Dim li = CType(clbKarts.Items(i), ListItemWithID)
                 BookingKartsDAL.AddBookingKart(bookingId, li.ID)
-                ' mark kart unavailable for this time range — simple approach
                 KartsDAL.SetKartAvailability(li.ID, False)
             End If
         Next
 
         MessageBox.Show("Booking created: " & bookingId)
-        LoadKarts() ' refresh availability
+        LoadKarts()
     End Sub
+
+    'Private Sub btnCreateBooking_Click(sender As Object, e As EventArgs) Handles btnCreateBooking.Click
+    '    ' Validate customer loaded
+    '    Dim customerId As Integer
+    '    If Not Integer.TryParse(txtCustomerID.Text, customerId) Then
+    '        MessageBox.Show("Load a customer first.")
+    '        Return
+    '    End If
+    '    Dim startDt = dtpStart.Value
+    '    Dim endDt = dtpEnd.Value
+    '    If endDt <= startDt Then
+    '        MessageBox.Show("End must be after start")
+    '        Return
+    '    End If
+
+    '    ' Insert booking
+    '    Dim bookingId = BookingsDAL.AddBooking(customerId, _staffId, startDt, endDt, "Booked", txtBookingNotes.Text)
+    '    If bookingId <= 0 Then
+    '        MessageBox.Show("Failed to create booking")
+    '        Return
+    '    End If
+
+    '    ' Add selected karts
+    '    For i = 0 To clbKarts.Items.Count - 1
+    '        If clbKarts.GetItemChecked(i) Then
+    '            Dim li = CType(clbKarts.Items(i), ListItemWithID)
+    '            BookingKartsDAL.AddBookingKart(bookingId, li.ID)
+    '            ' mark kart unavailable for this time range — simple approach
+    '            KartsDAL.SetKartAvailability(li.ID, False)
+    '        End If
+    '    Next
+
+    '    MessageBox.Show("Booking created: " & bookingId)
+    '    LoadKarts() ' refresh availability
+    'End Sub
 
     Private Sub btnSearchDate_Click(sender As Object, e As EventArgs) Handles btnSearchDate.Click
         Dim dateSel = dtpSearchDate.Value.Date

@@ -25,6 +25,23 @@ Public Class CustomersDAL
         End Using
     End Function
 
+    Public Shared Function GetAllCustomers() As DataTable
+        Dim dt As New DataTable()
+        Dim sql = "SELECT CustomerID,(FirstName & ' ' & LastName) AS FullName 
+               FROM Customers 
+               WHERE IsArchived = 0 
+               ORDER BY LastName, FirstName"
+        Using cn = DBHelper.GetConnection()
+            Using cmd = New OleDbCommand(sql, cn)
+                Using da As New OleDbDataAdapter(cmd)
+                    da.Fill(dt)
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
+
+
     Public Shared Function UpdateCustomer(id As Integer, firstName As String, lastName As String, dob As DateTime?, phone As String, email As String, address As String) As Boolean
         Dim sql = "UPDATE Customers SET FirstName=?, LastName=?, DOB=?, Phone=?, Email=?, Address=?, UpdatedAt=? WHERE CustomerID=?"
         Using cn = DBHelper.GetConnection()

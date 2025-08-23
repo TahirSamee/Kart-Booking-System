@@ -175,6 +175,7 @@
         Me.dgvKarts.ReadOnly = True
         Me.dgvKarts.RowHeadersVisible = False
         Me.dgvKarts.RowHeadersWidth = 51
+        Me.dgvKarts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvKarts.Size = New System.Drawing.Size(418, 320)
         Me.dgvKarts.TabIndex = 2
         '
