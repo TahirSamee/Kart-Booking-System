@@ -4,20 +4,13 @@ Imports System.IO
 Module DBHelper
 
 
-    'Public ReadOnly Property DatabasePath As String
-    '    Get
-    '        ' If you placed the DB in a Data folder inside the project output
-    '        Return Path.Combine(Application.StartupPath, "Data", "KartBooking.accdb")
-    '    End Get
-    'End Property
     Public ReadOnly Property DatabasePath As String
         Get
-            ' Get the base directory of the project (move up from bin\Debug\)
-            Dim projectDir As String = Directory.GetParent(Application.StartupPath).Parent.FullName
-            ' Combine with "Data\KartBooking.accdb"
-            Return Path.Combine(projectDir, "Data", "KartBooking.accdb")
+            ' If you placed the DB in a Data folder inside the project output
+            Return Path.Combine(Application.StartupPath, "Data", "KartBooking.accdb")
         End Get
     End Property
+
 
     Public Function GetConnection() As OleDbConnection
         Dim connString As String = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={DatabasePath};Persist Security Info=False;"
